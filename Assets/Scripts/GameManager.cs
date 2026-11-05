@@ -44,10 +44,14 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         if (artists.Count == 0) GeneratePlaceholders();
         if (shuffle) Shuffle(artists);
+
+        // Espera 2 frames para a UI ter tempo de subscrever os eventos
+        yield return null;
+        yield return null;
         NextArtist();
     }
 

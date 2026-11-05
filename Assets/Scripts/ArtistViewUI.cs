@@ -53,9 +53,11 @@ public class ArtistViewUI : MonoBehaviour
     private void ShowArtist(ArtistData a)
     {
         nameText.text = a.artistName;
-        portraitImage.sprite = a.portrait != null ? a.portrait : PlaceholderFor(a.kind);
-        portraitImage.enabled = portraitImage.sprite != null;
-        portraitImage.color = portraitImage.sprite == null ? Color.gray : Color.white;
+        Sprite sprite = a.portrait != null ? a.portrait : PlaceholderFor(a.kind);
+        portraitImage.sprite = sprite;
+        portraitImage.enabled = true;
+        // Sem sprite: usa uma cor diferente por artista, para se ver a mudança
+        portraitImage.color = sprite != null ? Color.white : PlaceholderColor(a);
 
         infoText.text =
             $"<b>Nome:</b> {a.artistName}\n" +
@@ -73,6 +75,13 @@ public class ArtistViewUI : MonoBehaviour
         ArtistKind.Impostor => placeholderImpostor,
         _ => placeholderHuman
     };
+
+    private Color PlaceholderColor(ArtistData a)
+    {
+        float hue = (Mathf.Abs(a.artistName.GetHashCode()) % 100) / 100f;
+        float sat = a.kind == ArtistKind.Robot ? 0.15f : 0.55f;
+        return Color.HSVToRGB(hue, sat, 0.9f);
+    }
 
     private void ShowProgress(int cur, int total)
     {
