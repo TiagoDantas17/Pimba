@@ -4,20 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Mostra o artista (lado direito) e o painel de informação (em baixo).
-/// Também liga os botões Aceitar / Recusar.
+/// Mostra o artista na cabine e liga os botões Aceitar / Recusar.
 /// </summary>
 public class ArtistViewUI : MonoBehaviour
 {
-    [Header("Artista (direita)")]
+    [Header("Artista (cabine)")]
     [SerializeField] private Image portraitImage;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private Sprite placeholderHuman;
     [SerializeField] private Sprite placeholderRobot;
     [SerializeField] private Sprite placeholderImpostor;
-
-    [Header("Painel de informação (baixo)")]
-    [SerializeField] private TMP_Text infoText;
 
     [Header("Botões")]
     [SerializeField] private Button acceptButton;
@@ -53,20 +49,12 @@ public class ArtistViewUI : MonoBehaviour
     private void ShowArtist(ArtistData a)
     {
         nameText.text = a.artistName;
+
         Sprite sprite = a.portrait != null ? a.portrait : PlaceholderFor(a.kind);
         portraitImage.sprite = sprite;
         portraitImage.enabled = true;
         // Sem sprite: usa uma cor diferente por artista, para se ver a mudança
         portraitImage.color = sprite != null ? Color.white : PlaceholderColor(a);
-
-        infoText.text =
-            $"<b>Nome:</b> {a.artistName}\n" +
-            $"<b>Idade:</b> {a.age}\n" +
-            $"<b>Origem:</b> {a.origin}\n" +
-            $"<b>Instrumento:</b> {a.instrument}\n" +
-            $"<b>Anos de carreira:</b> {a.careerYears}\n" +
-            $"<b>Música mais famosa:</b> {a.famousSong}\n" +
-            $"<b>Notas:</b> {a.notes}";
     }
 
     private Sprite PlaceholderFor(ArtistKind k) => k switch
@@ -79,8 +67,7 @@ public class ArtistViewUI : MonoBehaviour
     private Color PlaceholderColor(ArtistData a)
     {
         float hue = (Mathf.Abs(a.artistName.GetHashCode()) % 100) / 100f;
-        float sat = a.kind == ArtistKind.Robot ? 0.15f : 0.55f;
-        return Color.HSVToRGB(hue, sat, 0.9f);
+        return Color.HSVToRGB(hue, 0.45f, 0.55f);
     }
 
     private void ShowProgress(int cur, int total)

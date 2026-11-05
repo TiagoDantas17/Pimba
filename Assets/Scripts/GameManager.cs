@@ -24,19 +24,31 @@ public class GameManager : MonoBehaviour
 
     [Header("Regras")]
     [SerializeField] private int maxMistakesBeforeFired = 3;
-    [SerializeField] private float delayBetweenArtists = 0.8f;
+    [SerializeField] private float delayBetweenArtists = 2.5f;   // tempo para ler a reação
+    [Tooltip("Se false, o jogo só começa quando chamares StartGame() (ex.: botão do ecrã de intro).")]
+    [SerializeField] private bool startAutomatically = true;
 
     // Eventos para a UI ouvir
     public event Action<ArtistData> OnArtistChanged;
-    public event Action<int, int> OnProgress;        // atual, total
+    public event Action<int, int> OnProgress;                    // atual, total
+    public event Action<ArtistData, bool, bool> OnDecisionMade;  // artista, aceitou?, acertou?
     public event Action<GameResult> OnGameEnded;
-    public event Action<bool> OnDecisionsEnabled;    // ativar/desativar botões
+    public event Action<bool> OnDecisionsEnabled;                // ativar/desativar botões
+
+    public ArtistData Current => current;
+
+    private static readonly string[] PlaceholderNames =
+    {
+        "Zé Maria", "Ana Luz", "Rui Costa", "Marta Silva", "Tiago Pires",
+        "Inês Faria", "Carlos Mota", "Beatriz Lemos", "Duarte Reis", "Sofia Prado"
+    };
 
     private int index = -1;
     private int correct, wrong;
     private readonly List<string> mistakes = new List<string>();
     private ArtistData current;
     private bool decisionLocked;
+    private bool started;
 
     private void Awake()
     {
@@ -52,6 +64,14 @@ public class GameManager : MonoBehaviour
         // Espera 2 frames para a UI ter tempo de subscrever os eventos
         yield return null;
         yield return null;
+        if (startAutomatically) StartGame();
+    }
+
+    /// <summary>Começa o jogo (chamado pelo botão do ecrã de intro).</summary>
+    public void StartGame()
+    {
+        if (started) return;
+        started = true;
         NextArtist();
     }
 
@@ -59,9 +79,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < placeholderCount; i++)
         {
-            bool pimba = i % 2 == 0;
-            ArtistKind kind = pimba ? ArtistKind.Human : (i % 3 == 0 ? ArtistKind.Robot : ArtistKind.Impostor);
-            artists.Add(ArtistData.CreatePlaceholder("Artista " + (i + 1), kind, pimba));
+            bool genuine = i % 2 == 0;
+            ArtistKind kind = genuine ? ArtistKind.Human : ((i / 2) % 2 == 0 ? ArtistKind.Robot : ArtistKind.Impostor);
+            string name = PlaceholderNames[i % PlaceholderNames.Length];
+            artists.Add(ArtistData.CreatePlaceholder(name, kind, genuine));
         }
     }
 
@@ -84,14 +105,19 @@ public class GameManager : MonoBehaviour
         decisionLocked = true;
         OnDecisionsEnabled?.Invoke(false);
 
-        // Nota: o jogador NÃO vê se acertou durante o jogo (só no fim).
-        if (accept == current.isPimba) correct++;
+        bool right = accept == current.isGenuine;
+        if (right) correct++;
         else
         {
             wrong++;
-            string why = current.isPimba ? "Recusaste um artista Pimba." : "Deixaste entrar: " + current.rejectReason;
+            string why = current.isGenuine
+                ? "Recusaste um artista real."
+                : "Deixaste entrar um impostor. " + (string.IsNullOrEmpty(current.flawHint) ? current.rejectReason : current.flawHint);
             mistakes.Add(current.artistName + " - " + why);
         }
+
+        // O jogador NÃO vê se acertou (só no fim), mas o artista reage no chat.
+        OnDecisionMade?.Invoke(current, accept, right);
 
         StartCoroutine(NextAfterDelay());
     }

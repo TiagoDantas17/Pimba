@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Barra de conversa (em cima). A conversa corre sozinha;
-/// o jogador só faz scroll e lê.
-/// Setup: ScrollRect > Viewport > Content (Vertical Layout Group + Content Size Fitter).
-/// linePrefab = um TMP_Text simples.
+/// Chat ÚNICO com scroll: as conversas antigas ficam guardadas e nunca fazem reset.
+/// Cada candidato começa com um separador; depois da decisão o artista reage.
 /// </summary>
 public class DialogueUI : MonoBehaviour
 {
@@ -16,7 +14,11 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text linePrefab;
     [SerializeField] private float delayBetweenLines = 1.2f;
     [SerializeField] private string playerLabel = "Tu";
-    [SerializeField] private bool autoScrollToBottom = true;
+
+    private const string PlayerColor = "#8FE3A8";
+    private const string ArtistColor = "#FFFFFF";
+    private const string ReactColor = "#FFD479";
+    private const string SystemColor = "#7FA6C9";
 
     private Coroutine routine;
 
@@ -32,11 +34,17 @@ public class DialogueUI : MonoBehaviour
         Subscribe();
     }
 
-    private void Subscribe() => GameManager.Instance.OnArtistChanged += HandleArtist;
+    private void Subscribe()
+    {
+        GameManager.Instance.OnArtistChanged += HandleArtist;
+        GameManager.Instance.OnDecisionMade += HandleDecision;
+    }
 
     private void OnDisable()
     {
-        if (GameManager.Instance != null) GameManager.Instance.OnArtistChanged -= HandleArtist;
+        if (GameManager.Instance == null) return;
+        GameManager.Instance.OnArtistChanged -= HandleArtist;
+        GameManager.Instance.OnDecisionMade -= HandleDecision;
     }
 
     private void HandleArtist(ArtistData artist)
@@ -45,23 +53,38 @@ public class DialogueUI : MonoBehaviour
         routine = StartCoroutine(PlayDialogue(artist));
     }
 
+    private void HandleDecision(ArtistData artist, bool accepted, bool correct)
+    {
+        if (routine != null) { StopCoroutine(routine); routine = null; }
+
+        AddLine($"<color={SystemColor}><i>({(accepted ? "Aceite" : "Recusado")})</i></color>");
+        AddLine($"<color={ReactColor}><b>{artist.artistName}:</b></color> {ReactionLines.Get(artist, accepted)}");
+    }
+
     private IEnumerator PlayDialogue(ArtistData artist)
     {
-        Clear();
+        AddLine($"<color={SystemColor}>— Novo candidato —</color>");
+        yield return new WaitForSeconds(delayBetweenLines * 0.5f);
+
         foreach (var line in artist.dialogue)
         {
-            AddLine($"<b>{playerLabel}:</b> {line.question}");
+            AddLine($"<color={PlayerColor}><b>{playerLabel}:</b></color> {line.question}");
             yield return new WaitForSeconds(delayBetweenLines);
-            AddLine($"<b>{artist.artistName}:</b> {line.answer}");
+            AddLine($"<color={ArtistColor}><b>{artist.artistName}:</b></color> {line.answer}");
             yield return new WaitForSeconds(delayBetweenLines);
         }
     }
 
     private void AddLine(string text)
     {
+        // Só desce sozinho se o jogador já estiver no fundo (para poder ler mensagens antigas)
+        bool wasAtBottom = scrollRect.verticalNormalizedPosition <= 0.05f
+                           || content.rect.height <= scrollRect.viewport.rect.height + 5f;
+
         var t = Instantiate(linePrefab, content);
         t.text = text;
-        if (autoScrollToBottom) StartCoroutine(ScrollDown());
+
+        if (wasAtBottom) StartCoroutine(ScrollDown());
     }
 
     private IEnumerator ScrollDown()
@@ -69,11 +92,5 @@ public class DialogueUI : MonoBehaviour
         yield return null; // espera o layout atualizar
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 0f;
-    }
-
-    private void Clear()
-    {
-        for (int i = content.childCount - 1; i >= 0; i--)
-            Destroy(content.GetChild(i).gameObject);
     }
 }
