@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private string gameSceneName = "Gameplay";
+    [SerializeField] private string gameSceneName = "SceneTiago";
     [SerializeField] private GameObject creditsPanel;
 
     private void Start()
