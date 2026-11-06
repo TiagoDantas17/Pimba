@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 36797392f51dc0a479399b434f2b3e98
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2908447680092117444
+    second: logoWdjd_0
+  - first:
+      213: 3251156353847069981
+    second: logoWdjd_1
+  - first:
+      213: -6619114411670779618
+    second: logoWdjd_2
+  - first:
+      213: 34081173437807793
+    second: logoWdjd_3
+  - first:
+      213: 8105219421560259630
+    second: logoWdjd_4
+  - first:
+      213: 6124970709172986646
+    second: logoWdjd_5
+  - first:
+      213: 8212319631286520505
+    second: logoWdjd_6
+  - first:
+      213: -7400306602233959861
+    second: logoWdjd_7
+  - first:
+      213: -4841873123622094390
+    second: logoWdjd_8
+  - first:
+      213: -798414018826980097
+    second: logoWdjd_9
+  - first:
+      213: 792817026562484739
+    second: logoWdjd_10
+  - first:
+      213: -8100163747172355631
+    second: logoWdjd_11
+  - first:
+      213: 3917968360646124170
+    second: logoWdjd_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: logoWdjd_0
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 152
+        width: 1931
+        height: 1640
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c913b361c1ec5820800000000000000
+      internalID: 2908447680092117444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_1
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 1273
+        width: 441
+        height: 516
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1d0f4c7a7d6e1d20800000000000000
+      internalID: 3251156353847069981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_2
+      rect:
+        serializedVersion: 2
+        x: 1533
+        y: 370
+        width: 109
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e19c1bc138e2424a0800000000000000
+      internalID: -6619114411670779618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_3
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 483
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bcf94c85a4197000800000000000000
+      internalID: 34081173437807793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_4
+      rect:
+        serializedVersion: 2
+        x: 1841
+        y: 483
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2442b0ee168b7070800000000000000
+      internalID: 8105219421560259630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_5
+      rect:
+        serializedVersion: 2
+        x: 1889
+        y: 370
+        width: 69
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613ade39864400550800000000000000
+      internalID: 6124970709172986646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_6
+      rect:
+        serializedVersion: 2
+        x: 2092
+        y: 483
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9baccc4a13508f170800000000000000
+      internalID: 8212319631286520505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_7
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 374
+        width: 33
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4aedd09a54dc4990800000000000000
+      internalID: -7400306602233959861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_8
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 327
+        width: 110
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac97ef22c063eccb0800000000000000
+      internalID: -4841873123622094390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_9
+      rect:
+        serializedVersion: 2
+        x: 1843
+        y: 374
+        width: 33
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff430281ea67be4f0800000000000000
+      internalID: -798414018826980097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_10
+      rect:
+        serializedVersion: 2
+        x: 1964
+        y: 370
+        width: 112
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a632892e6a00b00800000000000000
+      internalID: 792817026562484739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_11
+      rect:
+        serializedVersion: 2
+        x: 2095
+        y: 374
+        width: 33
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d17b4b0dff669f80800000000000000
+      internalID: -8100163747172355631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoWdjd_12
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 370
+        width: 95
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a822889377b6f5630800000000000000
+      internalID: 3917968360646124170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 33cecc8658850cf4c8ebd898a0353647
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      logoWdjd_0: 2908447680092117444
+      logoWdjd_1: 3251156353847069981
+      logoWdjd_10: 792817026562484739
+      logoWdjd_11: -8100163747172355631
+      logoWdjd_12: 3917968360646124170
+      logoWdjd_2: -6619114411670779618
+      logoWdjd_3: 34081173437807793
+      logoWdjd_4: 8105219421560259630
+      logoWdjd_5: 6124970709172986646
+      logoWdjd_6: 8212319631286520505
+      logoWdjd_7: -7400306602233959861
+      logoWdjd_8: -4841873123622094390
+      logoWdjd_9: -798414018826980097
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
