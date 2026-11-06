@@ -16,6 +16,7 @@ public static class ArtistRoster
 
         // 1. Tio Canções
         var tio = Make("Tio Canções", ArtistKind.Human, true);
+        tio.portraitKey = "TioCancoes";
         tio.birthDate = "14/03/1962"; tio.identityNumber = "11223344"; tio.validUntil = "03/2031";
         Say(tio, "Bom dia!");
         Say(tio, "Vim apresentar-me, tome, tome.");
@@ -26,6 +27,7 @@ public static class ArtistRoster
 
         // 2. Quim das Couves
         var quim = Make("Quim das Couves", ArtistKind.Human, true);
+        quim.portraitKey = "QuimDasCouves";
         quim.birthDate = "02/09/1958"; quim.identityNumber = "22334455"; quim.validUntil = "09/2030";
         Say(quim, "Ora, com licença.");
         Say(quim, "Espero que esteja tudo ajeitado!");
@@ -36,6 +38,7 @@ public static class ArtistRoster
 
         // 3. Azulhos
         var azulhos = Make("Azulhos", ArtistKind.Human, true);
+        azulhos.portraitKey = "Azulhos";
         azulhos.birthDate = "23/06/1991"; azulhos.identityNumber = "33445566"; azulhos.validUntil = "06/2032";
         Say(azulhos, "Olá, olá!");
         Say(azulhos, "Obrigada pela oportunidade, acho que está aqui tudo o que me pediu.");
@@ -46,6 +49,7 @@ public static class ArtistRoster
 
         // 4. Carol Descendentes
         var carol = Make("Carol Descendentes", ArtistKind.Human, true);
+        carol.portraitKey = "CarolDescendentes";
         carol.birthDate = "11/11/1997"; carol.identityNumber = "44556677"; carol.validUntil = "11/2033";
         Say(carol, "Hey! Agradeço por poder vir aqui");
         Say(carol, "Deveria entregar mais alguma coisa?");
@@ -56,6 +60,7 @@ public static class ArtistRoster
 
         // 5. Aquário (sem cartão de cidadão: entrega passaporte)
         var aquario = Make("Aquário", ArtistKind.Human, true);
+        aquario.portraitKey = "Aquario";
         aquario.passportNumber = "P4821907"; aquario.passportCountry = "Reino Unido";
         Say(aquario, "Oi mate!");
         Say(aquario, "Glad to be here, here's everything. I don't have a Cartão de cidadão, so here's my passport!");
@@ -68,6 +73,7 @@ public static class ArtistRoster
 
         // 6. Tio Canções (falso): cartão de cidadão caducado + crachá VIP
         var copy = Make("Tio Canções", ArtistKind.Impostor, false);
+        copy.portraitKey = "TioCancoes_2";
         copy.birthDate = "14/03/1962"; copy.identityNumber = "11223348"; copy.validUntil = "03/2021"; // caducado
         copy.rejectReason = "Era um copycat do Tio Canções.";
         copy.flawHint = "O cartão de cidadão estava caducado e trouxe um crachá VIP, que um artista verdadeiro não entrega.";
@@ -80,8 +86,11 @@ public static class ArtistRoster
 
         // ================= IAs =================
 
-        // 7. Tugatron_1: documentos de outra pessoa + autógrafo em binário
-        var t1 = Make("Tugatron_1", ArtistKind.Robot, false);
+        // 7. Zé Bigodes (IA): documentos de outra pessoa + autógrafo em binário
+        var t1 = Make("Zé Bigodes", ArtistKind.Robot, false);
+        t1.portraitKey = "ZeBigodes";
+        t1.portraitScaleMultiplier = 0.6f;   // a foto do Zé Bigodes é maior que as outras: mexe aqui (0.5 = mais pequeno, 0.8 = mais perto dos outros)
+        t1.portraitSize = 0.65f;   // a foto do Zé Bigodes é a única que ultrapassa: mais pequena (ajusta aqui)
         t1.identityName = "Marta Silva"; t1.birthDate = "22/08/1989"; t1.identityNumber = "30415582"; t1.validUntil = "09/2030";
         t1.portfolioName = "Marta Silva"; t1.age = 37; t1.origin = "Braga"; t1.instrument = "Violino"; t1.careerYears = 12;
         t1.rejectReason = "Era uma IA.";
@@ -89,12 +98,13 @@ public static class ArtistRoster
         Say(t1, "Ol-a");
         Give(t1, HandoutKind.Identity);
         Give(t1, HandoutKind.Portfolio);
-        // "Tugatron" em binário (ASCII)
-        Give(t1, HandoutKind.Autograph, null, "01010100 01110101 01100111 01100001 01110100 01110010 01101111 01101110");
+        // "Ze Bigodes" em binário (ASCII)
+        Give(t1, HandoutKind.Autograph, null, "01011010 01100101 00100000 01000010 01101001 01100111 01101111 01100100 01100101 01110011");
         list.Add(t1);
 
-        // 8. Tugatron_2: não fala; documentos que não batem certo + crachá VIP
-        var t2 = Make("Tugatron_2", ArtistKind.Robot, false);
+        // 8. Azúlios (IA): não fala; documentos que não batem certo + crachá VIP
+        var t2 = Make("Azúlios", ArtistKind.Robot, false);
+        t2.portraitKey = "Azulios";
         t2.identityName = "Rui Costa"; t2.birthDate = "05/11/1975"; t2.identityNumber = "27719046"; t2.validUntil = "03/2031";
         t2.passportName = "Ruy Costa"; t2.passportNumber = "P0000000"; t2.passportCountry = "Portugal";
         t2.rejectReason = "Era uma IA.";

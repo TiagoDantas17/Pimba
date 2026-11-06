@@ -62,7 +62,13 @@ public class ArtistData : ScriptableObject
 {
     [Header("Identidade")]
     public string artistName = "Artista";
-    public Sprite portrait;               // Imagem do artista na cabine
+    public Sprite portrait;               // Imagem do artista na cabine (assets criados à mão)
+    [Tooltip("Nome do ficheiro em Assets/Resources/Portraits/ (sem .png). Usado se Portrait estiver vazio.")]
+    public string portraitKey;
+    [Tooltip("Ajuste só para este artista, por cima do Portrait Scale geral. 1 = igual aos outros; 0.6 = mais pequeno.")]
+    [Range(0.2f, 2f)] public float portraitScaleMultiplier = 1f;
+    [Range(0.2f, 2f), Tooltip("Tamanho só deste artista (multiplica o Portrait Scale geral). 1 = normal; menos que 1 = mais pequeno.")]
+    public float portraitSize = 1f;
     public ArtistKind kind = ArtistKind.Human;
 
     [Header("Verdade (o jogador não vê isto)")]

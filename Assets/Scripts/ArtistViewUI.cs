@@ -10,6 +10,10 @@ public class ArtistViewUI : MonoBehaviour
 {
     [Header("Artista (cabine)")]
     [SerializeField] private Image portraitImage;
+    [Tooltip("Aumenta ou diminui a foto do artista (1 = tamanho normal da caixa).")]
+    [SerializeField, Range(0.5f, 2.5f)] private float portraitScale = 1.3f;
+    [Tooltip("Ligado: a foto não se deforma. Desligado: estica para encher a caixa.")]
+    [SerializeField] private bool keepAspect = true;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private Sprite placeholderHuman;
     [SerializeField] private Sprite placeholderRobot;
@@ -50,11 +54,32 @@ public class ArtistViewUI : MonoBehaviour
     {
         nameText.text = a.artistName;
 
-        Sprite sprite = a.portrait != null ? a.portrait : PlaceholderFor(a.kind);
+        Sprite sprite = a.portrait;
+        if (sprite == null) sprite = LoadPortrait(a);
+        if (sprite == null) sprite = PlaceholderFor(a.kind);
+
         portraitImage.sprite = sprite;
+        portraitImage.preserveAspect = keepAspect;
+        portraitImage.rectTransform.localScale = Vector3.one * portraitScale;
         portraitImage.enabled = true;
         // Sem sprite: usa uma cor diferente por artista, para se ver a mudança
         portraitImage.color = sprite != null ? Color.white : PlaceholderColor(a);
+    }
+
+    /// <summary>
+    /// Procura a foto em Assets/Resources/Portraits (ignora maiúsculas, acentos, espaços e "_").
+    /// Se o artista tem portraitKey, usa SÓ a chave (assim o copycat nunca apanha a foto do original).
+    /// </summary>
+    private Sprite LoadPortrait(ArtistData a)
+    {
+        string wanted = !string.IsNullOrEmpty(a.portraitKey) ? a.portraitKey : a.artistName;
+        var found = SpriteLibrary.Find("Portraits", wanted);
+        if (found != null) return found;
+
+        Debug.LogWarning($"[Pimba] Sem foto para '{a.artistName}'. Procurei '{wanted}' em Assets/Resources/Portraits. " +
+                         $"Encontradas: {SpriteLibrary.Listing("Portraits")}. " +
+                         "Confirma o nome e que a imagem é um Sprite (2D and UI).");
+        return null;
     }
 
     private Sprite PlaceholderFor(ArtistKind k) => k switch

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class DocumentCard : MonoBehaviour
 
     private RectTransform rect;
     private Image image;
+    private Image art;          // imagem por cima do cartão (ex.: a assinatura)
     private Vector2 spawnPos;
     private bool captured;
 
@@ -40,6 +42,40 @@ public class DocumentCard : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void SetArt(Sprite sprite)
+    {
+        if (art == null)
+        {
+            if (sprite == null) return;
+            var go = new GameObject("Art", typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(transform, false);
+            go.transform.SetAsFirstSibling();           // os textos ficam por cima
+            var r = (RectTransform)go.transform;
+            r.anchorMin = new Vector2(0.06f, 0.06f);
+            r.anchorMax = new Vector2(0.94f, 0.80f);
+            r.offsetMin = Vector2.zero;
+            r.offsetMax = Vector2.zero;
+            art = go.GetComponent<Image>();
+            art.preserveAspect = true;
+            art.raycastTarget = false;                   // não bloqueia o arrastar do cartão
+        }
+
+        art.gameObject.SetActive(sprite != null);
+        art.sprite = sprite;
+        art.color = Color.white;
+    }
+
+    private static Sprite FindSignature(ArtistData a)
+    {
+        // usa a mesma chave da foto (ex.: TioCancoes, ZeBigodes); sem chave, usa o nome
+        string key = string.IsNullOrEmpty(a.portraitKey) ? a.artistName : a.portraitKey;
+        var s = SpriteLibrary.Find("Signatures", key);
+        if (s == null)
+            Debug.LogWarning($"[Pimba] Sem assinatura para '{a.artistName}'. Procurei '{key}' em Assets/Resources/Signatures. " +
+                             $"Encontradas: {SpriteLibrary.Listing("Signatures")}. (Sem imagem, mostra o texto.)");
+        return s;
+    }
+
     public void Show(ArtistData a, Handout h)
     {
         Capture();
@@ -60,6 +96,7 @@ public class DocumentCard : MonoBehaviour
         Color bg;
         string title;
         string body;
+        Sprite artSprite = null;
 
         switch (h.kind)
         {
@@ -97,7 +134,9 @@ public class DocumentCard : MonoBehaviour
                 bg = AutographColor;
                 title = "AUTÓGRAFO";
                 bodyText.alignment = TextAlignmentOptions.Center;
-                body = $"<i>{(string.IsNullOrEmpty(h.text) ? a.artistName : h.text)}</i>";
+                // Se houver imagem da assinatura, mostra-a; senão mostra o texto
+                if (h.sprite == null) artSprite = FindSignature(a);
+                body = artSprite != null ? "" : $"<i>{(string.IsNullOrEmpty(h.text) ? a.artistName : h.text)}</i>";
                 break;
 
             default: // VipBadge
@@ -113,6 +152,7 @@ public class DocumentCard : MonoBehaviour
             image.sprite = h.sprite;                       // sem sprite = bloco de cor
             image.color = h.sprite != null ? Color.white : bg;
         }
+        SetArt(artSprite);
         titleText.text = title;
         bodyText.text = body;
     }
