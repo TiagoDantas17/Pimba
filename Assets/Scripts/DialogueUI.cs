@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Chat ÚNICO com scroll: as conversas antigas ficam guardadas e nunca fazem reset.
-/// Cada candidato começa com um separador; depois da decisão o artista reage.
+/// Cada candidato começa com um separador, diz as suas falas, "entrega" os objetos
+/// e, depois da decisão, reage.
 /// </summary>
 public class DialogueUI : MonoBehaviour
 {
@@ -68,11 +69,22 @@ public class DialogueUI : MonoBehaviour
 
         foreach (var line in artist.dialogue)
         {
-            AddLine($"<color={PlayerColor}><b>{playerLabel}:</b></color> {line.question}");
-            yield return new WaitForSeconds(delayBetweenLines);
-            AddLine($"<color={ArtistColor}><b>{artist.artistName}:</b></color> {line.answer}");
-            yield return new WaitForSeconds(delayBetweenLines);
+            // A pergunta do jogador é opcional: se estiver vazia, só fala o artista
+            if (!string.IsNullOrEmpty(line.question))
+            {
+                AddLine($"<color={PlayerColor}><b>{playerLabel}:</b></color> {line.question}");
+                yield return new WaitForSeconds(delayBetweenLines);
+            }
+            if (!string.IsNullOrEmpty(line.answer))
+            {
+                AddLine($"<color={ArtistColor}><b>{artist.artistName}:</b></color> {line.answer}");
+                yield return new WaitForSeconds(delayBetweenLines);
+            }
         }
+
+        string delivery = artist.DeliveryText();
+        if (!string.IsNullOrEmpty(delivery))
+            AddLine($"<color={SystemColor}><i>{delivery}</i></color>");
     }
 
     private void AddLine(string text)
