@@ -62,12 +62,12 @@ public class EndingController : MonoBehaviour
         if (fired)
         {
             if (bossFiredGroup) bossFiredGroup.SetActive(true);
-            if (bossLineText) bossLineText.text = "Estás despedido! O festival foi uma vergonha!";
+            if (bossLineText) bossLineText.text = "Estás despedido! O quarteirão cultural foi uma vergonha!";
         }
         else
         {
             if (bossHappyGroup) bossHappyGroup.SetActive(true);
-            if (bossLineText) bossLineText.text = "Excelente trabalho! O festival Pimba foi um sucesso!";
+            if (bossLineText) bossLineText.text = "Excelente trabalho! O quarteirão cultural foi um sucesso!";
         }
     }
 }

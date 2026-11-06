@@ -99,10 +99,11 @@ public static class PimbaArtUIBuilder
         deskArea.offsetMin = Vector2.zero;
         deskArea.offsetMax = Vector2.zero;
 
-        var cardId = NewCard("Card_Identity", deskArea, DocType.Identity, new Color(0.85f, 0.87f, 0.8f), new Vector2(-260, 170));
-        var cardMember = NewCard("Card_Member", deskArea, DocType.Member, new Color(0.75f, 0.85f, 0.95f), new Vector2(260, 170));
-        var cardPassport = NewCard("Card_Passport", deskArea, DocType.Passport, new Color(0.55f, 0.75f, 0.55f), new Vector2(-260, -170));
-        var cardPortfolio = NewCard("Card_Portfolio", deskArea, DocType.Portfolio, Paper, new Vector2(260, -170));
+        // 4 cartões genéricos: o DeskController mostra neles o que cada artista entrega
+        var card1 = NewCard("Card_1", deskArea, Paper, new Vector2(-260, 170));
+        var card2 = NewCard("Card_2", deskArea, Paper, new Vector2(260, 170));
+        var card3 = NewCard("Card_3", deskArea, Paper, new Vector2(-260, -170));
+        var card4 = NewCard("Card_4", deskArea, Paper, new Vector2(260, -170));
 
         // Botões redondos (trocar a Source Image pelos teus desenhos)
         var rejectBtn = NewButton("RejectButton", desk.transform, "X", new Color(0.75f, 0.2f, 0.2f), new Vector2(0.8715f, 0.139f), new Vector2(0.9785f, 0.243f), knob);
@@ -152,7 +153,7 @@ public static class PimbaArtUIBuilder
         Set(view, "rejectButton", rejectBtn);
         Set(view, "progressText", progressText);
 
-        SetArray(deskCtrl, "cards", new Object[] { cardId, cardMember, cardPassport, cardPortfolio });
+        SetArray(deskCtrl, "cards", new Object[] { card1, card2, card3, card4 });
 
         Set(end, "endingPanel", ending.gameObject);
         Set(end, "resultText", resultText);
@@ -184,7 +185,7 @@ public static class PimbaArtUIBuilder
     }
 
     // ---------------- cartões ----------------
-    static DocumentCard NewCard(string name, Transform parent, DocType type, Color color, Vector2 pos)
+    static DocumentCard NewCard(string name, Transform parent, Color color, Vector2 pos)
     {
         var r = NewRect(name, parent);
         r.anchorMin = r.anchorMax = new Vector2(0.5f, 0.5f);
@@ -206,7 +207,6 @@ public static class PimbaArtUIBuilder
         r.gameObject.AddComponent<DraggableCard>();
 
         var so = new SerializedObject(card);
-        so.FindProperty("type").enumValueIndex = (int)type;
         so.FindProperty("titleText").objectReferenceValue = title;
         so.FindProperty("bodyText").objectReferenceValue = body;
         so.ApplyModifiedProperties();

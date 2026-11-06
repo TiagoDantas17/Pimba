@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Quando muda o artista, atualiza os cartões em cima da mesa.
+/// Quando muda o artista, põe na mesa os objetos que ele entrega
+/// (os cartões a mais ficam escondidos).
 /// </summary>
 public class DeskController : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class DeskController : MonoBehaviour
 
     private void ShowArtist(ArtistData a)
     {
-        foreach (var c in cards) c.Show(a);
+        if (a.handouts.Count > cards.Length)
+            Debug.LogWarning($"[Pimba] {a.artistName} entrega {a.handouts.Count} objetos, mas só há {cards.Length} cartões na mesa.");
+
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (i < a.handouts.Count) cards[i].Show(a, a.handouts[i]);
+            else cards[i].Hide();
+        }
     }
 }

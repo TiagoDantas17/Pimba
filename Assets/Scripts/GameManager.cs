@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Artistas")]
-    [Tooltip("Se ficar vazio, são gerados artistas placeholder.")]
+    [Tooltip("Se ficar vazio, usa o elenco do ArtistRoster.cs (na ordem escrita lá).")]
     [SerializeField] private List<ArtistData> artists = new List<ArtistData>();
-    [SerializeField] private int placeholderCount = 8;
+    [Tooltip("Só afeta uma lista que tu preencheres. O elenco do ArtistRoster nunca é baralhado.")]
     [SerializeField] private bool shuffle = true;
 
     [Header("Regras")]
@@ -37,12 +37,6 @@ public class GameManager : MonoBehaviour
 
     public ArtistData Current => current;
 
-    private static readonly string[] PlaceholderNames =
-    {
-        "Zé Maria", "Ana Luz", "Rui Costa", "Marta Silva", "Tiago Pires",
-        "Inês Faria", "Carlos Mota", "Beatriz Lemos", "Duarte Reis", "Sofia Prado"
-    };
-
     private int index = -1;
     private int correct, wrong;
     private readonly List<string> mistakes = new List<string>();
@@ -58,8 +52,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        if (artists.Count == 0) GeneratePlaceholders();
-        if (shuffle) Shuffle(artists);
+        if (artists.Count == 0)
+            artists.AddRange(ArtistRoster.Build());   // ordem fixa, sem baralhar
+        else if (shuffle)
+            Shuffle(artists);
 
         // Espera 2 frames para a UI ter tempo de subscrever os eventos
         yield return null;
@@ -73,17 +69,6 @@ public class GameManager : MonoBehaviour
         if (started) return;
         started = true;
         NextArtist();
-    }
-
-    private void GeneratePlaceholders()
-    {
-        for (int i = 0; i < placeholderCount; i++)
-        {
-            bool genuine = i % 2 == 0;
-            ArtistKind kind = genuine ? ArtistKind.Human : ((i / 2) % 2 == 0 ? ArtistKind.Robot : ArtistKind.Impostor);
-            string name = PlaceholderNames[i % PlaceholderNames.Length];
-            artists.Add(ArtistData.CreatePlaceholder(name, kind, genuine));
-        }
     }
 
     private void NextArtist()
